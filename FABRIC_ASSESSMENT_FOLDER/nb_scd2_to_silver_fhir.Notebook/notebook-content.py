@@ -49,6 +49,8 @@ RESOURCES = [
 
 # CELL ********************
 
+from pyspark.sql.functions import col, element_at
+
 def silver_patient():
 
     path_in = "Tables/Scd2/Patient"
@@ -60,27 +62,31 @@ def silver_patient():
     df = df.filter(col("is_current") == True)
 
     df_silver = df.select(
+
         col("id").alias("patient_id"),
         col("active"),
         col("gender"),
         col("birthDate").alias("birth_date"),
         col("deceasedBoolean").alias("deceased"),
 
-        # Name (first entry)
-        col("name")[0]["family"].alias("family_name"),
-        col("name")[0]["given"][0].alias("given_name"),
+        # SAFE name extraction
+        element_at(col("name"), 1)["family"].alias("family_name"),
+        element_at(col("name"), 1)["given"][0].alias("given_name"),
 
-        # Address
-        col("address")[0]["city"].alias("city"),
-        col("address")[0]["state"].alias("state"),
-        col("address")[0]["country"].alias("country"),
+        # SAFE address extraction
+        element_at(col("address"), 1)["city"].alias("city"),
+        element_at(col("address"), 1)["state"].alias("state"),
+        element_at(col("address"), 1)["country"].alias("country"),
 
         col("ingested_at")
     )
 
-    df_silver.write.format("delta").mode("overwrite").save(path_out)
+    df_silver.write.format("delta") \
+        .mode("overwrite") \
+        .option("overwriteSchema","true") \
+        .save(path_out)
 
-    print("Silver Patient created")
+    print("✅ Silver Patient created")
 
 # METADATA ********************
 
@@ -224,7 +230,7 @@ silver_encounter()
 silver_observation()
 silver_condition()
 
-print("\n✅ SILVER layer completed")
+print("\n SILVER layer completed")
 
 # METADATA ********************
 

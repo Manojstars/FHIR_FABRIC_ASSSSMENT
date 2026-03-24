@@ -50,6 +50,9 @@ RESOURCES = [
 
 # CELL ********************
 
+from delta.tables import DeltaTable
+from pyspark.sql.functions import col, sha2, to_json, struct, current_timestamp, lit
+
 def apply_scd2(resource):
 
     bronze_path = f"Tables/Bronze_layer/{resource}"
@@ -57,19 +60,21 @@ def apply_scd2(resource):
 
     print(f"\nProcessing SCD2 for {resource}")
 
-    
+    # Read bronze data
     df = spark.read.format("delta").load(bronze_path)
 
-    
+    # Remove duplicates on business key
     df = df.dropDuplicates(["id"])
 
-    
+    # Create row hash (only business columns)
+    business_cols = [c for c in df.columns if c not in ["ingested_at"]]
+
     df = df.withColumn(
         "row_hash",
-        sha2(to_json(struct(*[col(c) for c in df.columns])), 256)
+        sha2(to_json(struct(*[col(c) for c in business_cols])), 256)
     )
 
-    
+    # Add SCD metadata
     df = (
         df
         .withColumn("valid_from", current_timestamp())
@@ -77,38 +82,44 @@ def apply_scd2(resource):
         .withColumn("is_current", lit(True))
     )
 
-
+    # If table doesn't exist → initial load
     if not DeltaTable.isDeltaTable(spark, scd2_path):
 
         df.write.format("delta") \
             .mode("overwrite") \
+            .option("overwriteSchema","true") \
             .save(scd2_path)
 
-        print("Initial SCD2 table created")
+        print("✅ Initial SCD2 table created")
         return
-
 
     scd2_table = DeltaTable.forPath(spark, scd2_path)
 
-    
+    # Close old records if changed
     scd2_table.alias("target").merge(
         df.alias("source"),
         "target.id = source.id AND target.is_current = true"
     ).whenMatchedUpdate(
-        condition="target.row_hash != source.row_hash",
+        condition="target.row_hash <> source.row_hash",
         set={
             "valid_to": current_timestamp(),
             "is_current": lit(False)
         }
     ).execute()
 
+    # Insert new OR changed records
     df.alias("source").join(
         scd2_table.toDF().alias("target"),
-        on="id",
-        how="left_anti"
-    ).write.format("delta").mode("append").save(scd2_path)
+        (col("source.id") == col("target.id")) &
+        (col("target.is_current") == True) &
+        (col("source.row_hash") == col("target.row_hash")),
+        "left_anti"
+    ).write.format("delta") \
+        .mode("append") \
+        .option("mergeSchema","true") \
+        .save(scd2_path)
 
-    print("SCD2 applied successfully")
+    print("✅ SCD2 applied successfully")
 
 # METADATA ********************
 
