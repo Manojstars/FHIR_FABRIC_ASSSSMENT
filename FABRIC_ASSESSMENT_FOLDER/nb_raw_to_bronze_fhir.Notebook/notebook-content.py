@@ -49,6 +49,8 @@ RESOURCES = [
 
 # CELL ********************
 
+from pyspark.sql.functions import explode, col, current_timestamp
+
 def raw_to_bronze(resource):
 
     raw_path = f"Files/RAW/{resource}"
@@ -56,25 +58,31 @@ def raw_to_bronze(resource):
 
     print(f"\nProcessing {resource}")
 
-    # Read all RAW JSON files
-    df = spark.read.option("multiLine", True).json(raw_path)
+    try:
+        # Read all RAW JSON files
+        df = spark.read.option("multiLine", True).json(raw_path)
 
-    # Extract resources from bundle
-    df_bronze = (
-        df
-        .withColumn("entry", explode(col("entry")))
-        .select("entry.resource.*")
-    )
+        # Extract resources from bundle
+        df_bronze = (
+            df
+            .withColumn("entry", explode(col("entry")))
+            .select("entry.resource.*")
+        )
 
-    # Add metadata
-    df_bronze = df_bronze.withColumn("ingested_at", lit(current_timestamp()))
+        # Add metadata
+        df_bronze = df_bronze.withColumn("ingested_at", current_timestamp())
 
-    # Write to Delta
-    df_bronze.write.format("delta") \
-        .mode("overwrite") \
-        .save(bronze_path)
+        # Write to Delta with schema evolution
+        df_bronze.write.format("delta") \
+            .mode("overwrite") \
+            .option("overwriteSchema", "true") \
+            .save(bronze_path)
 
-    print(f" Bronze table created: {bronze_path}")
+        print(f"✅ Bronze table created: {bronze_path}")
+
+    except Exception as e:
+        print(f"❌ Failed processing {resource}")
+        print(e)
 
 # METADATA ********************
 
