@@ -1,0 +1,135 @@
+table Encounter
+	lineageTag: 528882e2-2445-4f77-af0d-0324f0901b9a
+	sourceLineageTag: [Gold_Layer].[Encounter]
+
+	column patient_id
+		dataType: string
+		lineageTag: ffd38cd7-8de4-46c6-9cb1-09c39e7ee51d
+		sourceLineageTag: patient_id
+		summarizeBy: none
+		sourceColumn: patient_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column encounter_id
+		dataType: string
+		lineageTag: 4aae0d01-e920-4b35-8dd1-94c4b2060984
+		sourceLineageTag: encounter_id
+		summarizeBy: none
+		sourceColumn: encounter_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: df5a46ed-e974-46b8-92d6-55442a5d4c61
+		sourceLineageTag: status
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column encounter_class
+		dataType: string
+		lineageTag: 789d7b14-ff8e-4ef0-ade6-ac2a01e29641
+		sourceLineageTag: encounter_class
+		summarizeBy: none
+		sourceColumn: encounter_class
+
+		annotation SummarizationSetBy = Automatic
+
+	column provider_reference
+		dataType: string
+		lineageTag: fce79d1b-592a-4ff3-b9c5-205b2d60e507
+		sourceLineageTag: provider_reference
+		summarizeBy: none
+		sourceColumn: provider_reference
+
+		annotation SummarizationSetBy = Automatic
+
+	column ingested_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: eba8ec1a-93c1-4b0e-968c-86f1f55db491
+		sourceLineageTag: ingested_at
+		summarizeBy: none
+		sourceColumn: ingested_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column gender
+		dataType: string
+		lineageTag: 9513d6c9-16b9-4e86-a35a-679f1ea7d1a9
+		sourceLineageTag: gender
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column birth_date
+		dataType: string
+		lineageTag: 09cc6f53-02c7-48de-99a2-64ff4c34ffa0
+		sourceLineageTag: birth_date
+		summarizeBy: none
+		sourceColumn: birth_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column period_start
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 64bac1d7-3f27-4597-bfa7-0a11d954b7f3
+		sourceLineageTag: period_start
+		summarizeBy: none
+		sourceColumn: period_start
+
+		annotation SummarizationSetBy = Automatic
+
+	column period_end
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c8917315-3b30-4caf-bb7d-112a0cc72786
+		sourceLineageTag: period_end
+		summarizeBy: none
+		sourceColumn: period_end
+
+		annotation SummarizationSetBy = Automatic
+
+	column encounter_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 642532d2-3b56-4571-9d61-ef976709db84
+		sourceLineageTag: encounter_date
+		summarizeBy: none
+		sourceColumn: encounter_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column duration_minutes
+		dataType: double
+		lineageTag: 5cd41382-bbbf-4af3-9a43-091474017223
+		sourceLineageTag: duration_minutes
+		summarizeBy: sum
+		sourceColumn: duration_minutes
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column age_at_encounter
+		dataType: int64
+		formatString: 0
+		lineageTag: c34b0dc4-7535-42c5-9f5a-10f94058b495
+		sourceLineageTag: age_at_encounter
+		summarizeBy: sum
+		sourceColumn: age_at_encounter
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Encounter = entity
+		mode: directLake
+		source
+			entityName: Encounter
+			schemaName: Gold_Layer
+			expressionSource: 'DirectLake - FHIR_Lakehouse'
+

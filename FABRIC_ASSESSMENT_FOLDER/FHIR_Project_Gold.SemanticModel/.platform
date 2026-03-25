@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "FHIR_Project_Gold"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "b25a56e0-8f26-8f93-4b40-70000044d5ad"
+  }
+}

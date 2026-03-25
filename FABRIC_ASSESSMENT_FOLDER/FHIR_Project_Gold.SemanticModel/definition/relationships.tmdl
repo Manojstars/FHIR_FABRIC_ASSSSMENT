@@ -1,0 +1,26 @@
+relationship e7925894-0fef-d0ec-7c0f-3a64e1c6e70d
+	fromColumn: Encounter.patient_id
+	toColumn: Patient.patient_id
+
+relationship e0b5535a-cf99-eef8-3003-ed0fb0c3d2a4
+	fromColumn: Condition.patient_id
+	toColumn: Patient.patient_id
+
+relationship c871f23a-a663-d470-f52b-040d0de04c2f
+	fromColumn: Observation.patient_id
+	toColumn: Patient.patient_id
+
+relationship b55688ee-7929-be03-5e74-284b28974610
+	isActive: false
+	fromColumn: DimDate.Date
+	toColumn: Encounter.encounter_date
+
+relationship c46111a6-8985-0992-98fb-5296cf423c8c
+	isActive: false
+	fromColumn: DimDate.Date
+	toColumn: Observation.observation_date
+
+relationship 4789ed7b-268b-7eb5-e115-4969e76adf49
+	fromColumn: DimDate.Date
+	toColumn: Condition.onset_date
+

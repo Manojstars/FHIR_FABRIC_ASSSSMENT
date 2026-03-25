@@ -1,0 +1,143 @@
+table Patient
+	lineageTag: b4cee0e6-2cfd-4989-bb50-01d35ce98e4f
+	sourceLineageTag: [Gold_Layer].[Patient]
+
+	column patient_id
+		dataType: string
+		lineageTag: 069f2cc3-abe7-47ff-be12-72a36054b33f
+		sourceLineageTag: patient_id
+		summarizeBy: none
+		sourceColumn: patient_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column active
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 707fc735-8e9f-4761-b446-28e0143df03b
+		sourceLineageTag: active
+		summarizeBy: none
+		sourceColumn: active
+
+		annotation SummarizationSetBy = Automatic
+
+	column gender
+		dataType: string
+		lineageTag: 69d7e021-2db3-4604-99da-f225bacbbf0a
+		sourceLineageTag: gender
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column birth_date
+		dataType: string
+		lineageTag: 5e1cd2bd-1619-4784-8841-0775d64d6172
+		sourceLineageTag: birth_date
+		summarizeBy: none
+		sourceColumn: birth_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column deceased
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 759dd39d-e77e-4a3a-9572-035d9523bb4f
+		sourceLineageTag: deceased
+		summarizeBy: none
+		sourceColumn: deceased
+
+		annotation SummarizationSetBy = Automatic
+
+	column family_name
+		dataType: string
+		lineageTag: cef699dd-117b-43a8-a13d-1843d4704a9c
+		sourceLineageTag: family_name
+		summarizeBy: none
+		sourceColumn: family_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column given_name
+		dataType: string
+		lineageTag: ef682186-a25e-4f2f-9792-6a4d37af027b
+		sourceLineageTag: given_name
+		summarizeBy: none
+		sourceColumn: given_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: 966d5d00-a568-48df-866e-e7234e127cc7
+		sourceLineageTag: city
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column state
+		dataType: string
+		lineageTag: d5a1a69b-6d33-4f5e-a36f-3af3b275c7e5
+		sourceLineageTag: state
+		summarizeBy: none
+		sourceColumn: state
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: 01c6023e-f7b7-4378-a6c1-b63022bf5eb0
+		sourceLineageTag: country
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column ingested_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: aedff887-22b9-4fab-920d-856882e5cf17
+		sourceLineageTag: ingested_at
+		summarizeBy: none
+		sourceColumn: ingested_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column encounter_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 70efe06e-a011-41f0-ba81-d6ab8de87dbf
+		sourceLineageTag: encounter_count
+		summarizeBy: sum
+		sourceColumn: encounter_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column observation_count
+		dataType: int64
+		formatString: 0
+		lineageTag: eed91f9a-fda6-4d83-bddc-2c17b1c98099
+		sourceLineageTag: observation_count
+		summarizeBy: sum
+		sourceColumn: observation_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column condition_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 96e0a1c6-91f7-44fa-9035-45436abcd50d
+		sourceLineageTag: condition_count
+		summarizeBy: sum
+		sourceColumn: condition_count
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Patient = entity
+		mode: directLake
+		source
+			entityName: Patient
+			schemaName: Gold_Layer
+			expressionSource: 'DirectLake - FHIR_Lakehouse'
+

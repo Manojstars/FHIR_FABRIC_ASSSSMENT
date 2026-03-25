@@ -1,0 +1,178 @@
+table Condition
+	lineageTag: 59ecaffe-59b9-442d-b468-ed5cdceb7b07
+	sourceLineageTag: [Gold_Layer].[Condition]
+
+	column patient_id
+		dataType: string
+		lineageTag: 2f331e03-b600-4d24-854b-d61779d5ee7c
+		sourceLineageTag: patient_id
+		summarizeBy: none
+		sourceColumn: patient_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column condition_id
+		dataType: string
+		lineageTag: 9bdb87fd-2877-4361-8b2e-531203530b4d
+		sourceLineageTag: condition_id
+		summarizeBy: none
+		sourceColumn: condition_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column encounter_id
+		dataType: string
+		lineageTag: f81b1dcf-0236-4d38-9117-570d5e1aeb99
+		sourceLineageTag: encounter_id
+		summarizeBy: none
+		sourceColumn: encounter_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column condition_code
+		dataType: string
+		lineageTag: d6fac0fb-1d04-497c-aebd-78d6805d9521
+		sourceLineageTag: condition_code
+		summarizeBy: none
+		sourceColumn: condition_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column condition_display
+		dataType: string
+		lineageTag: 041a845c-8059-49c1-8783-83f5dd5efa37
+		sourceLineageTag: condition_display
+		summarizeBy: none
+		sourceColumn: condition_display
+
+		annotation SummarizationSetBy = Automatic
+
+	column clinical_status
+		dataType: string
+		lineageTag: e03b4229-765b-40d7-92ef-4a356ad9c834
+		sourceLineageTag: clinical_status
+		summarizeBy: none
+		sourceColumn: clinical_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column onset_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 4a4eef9a-7123-49f2-80ba-dcb16ffc1e5b
+		sourceLineageTag: onset_date
+		summarizeBy: none
+		sourceColumn: onset_date
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column recorded_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b2be8387-7468-4423-9ccf-6878874d1e57
+		sourceLineageTag: recorded_date
+		summarizeBy: none
+		sourceColumn: recorded_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column ingested_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9da3eee7-1591-42b9-9381-2562d2408dc5
+		sourceLineageTag: ingested_at
+		summarizeBy: none
+		sourceColumn: ingested_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column gender
+		dataType: string
+		lineageTag: 61df0c4d-afdd-4310-9480-7f57e409196f
+		sourceLineageTag: gender
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column birth_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 365d4aff-55f4-4380-9586-38efdff20d55
+		sourceLineageTag: birth_date
+		summarizeBy: none
+		sourceColumn: birth_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_encounter
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 68c16041-67ee-4002-a447-4cdb47b20f5b
+		sourceLineageTag: has_encounter
+		summarizeBy: none
+		sourceColumn: has_encounter
+
+		annotation SummarizationSetBy = Automatic
+
+	column condition_status_group
+		dataType: string
+		lineageTag: 37511494-398d-4c07-9c53-938cc3d3735a
+		sourceLineageTag: condition_status_group
+		summarizeBy: none
+		sourceColumn: condition_status_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column condition_age_days
+		dataType: int64
+		formatString: 0
+		lineageTag: c0f1d488-b3f5-4cee-9794-91233dd275e0
+		sourceLineageTag: condition_age_days
+		summarizeBy: sum
+		sourceColumn: condition_age_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column patient_age
+		dataType: int64
+		lineageTag: c5858c64-12af-4bf6-8c2d-ccc03c482c40
+		sourceLineageTag: patient_age
+		summarizeBy: sum
+		sourceColumn: patient_age
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column is_chronic
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: aabb987b-ff24-4898-8138-24e769fc4977
+		sourceLineageTag: is_chronic
+		summarizeBy: none
+		sourceColumn: is_chronic
+
+		annotation SummarizationSetBy = Automatic
+
+	column condition_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 363ad4f6-de96-472b-bf26-7628cfbf79d8
+		sourceLineageTag: condition_count
+		summarizeBy: sum
+		sourceColumn: condition_count
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Condition = entity
+		mode: directLake
+		source
+			entityName: Condition
+			schemaName: Gold_Layer
+			expressionSource: 'DirectLake - FHIR_Lakehouse'
+

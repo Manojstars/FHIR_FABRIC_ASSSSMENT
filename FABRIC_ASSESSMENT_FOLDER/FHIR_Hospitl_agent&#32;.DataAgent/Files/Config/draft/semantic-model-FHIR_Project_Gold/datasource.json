@@ -1,0 +1,734 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/dataAgent/definition/dataSource/1.0.0/schema.json",
+  "artifactId": "b25a56e0-8f26-8f93-4b40-70000044d5ad",
+  "workspaceId": "00000000-0000-0000-0000-000000000000",
+  "dataSourceInstructions": null,
+  "displayName": "FHIR_Project_Gold",
+  "type": "semantic_model",
+  "userDescription": null,
+  "metadata": {
+    "csdl_relationships": "[{\"FromTable\":\"Condition\",\"FromColumn\":\"patient_id\",\"ToTable\":\"Patient\",\"ToColumn\":\"patient_id\",\"IsActive\":true,\"IsBidirectional\":false,\"Cardinality\":\"ManyToOne\"},{\"FromTable\":\"Encounter\",\"FromColumn\":\"patient_id\",\"ToTable\":\"Patient\",\"ToColumn\":\"patient_id\",\"IsActive\":true,\"IsBidirectional\":false,\"Cardinality\":\"ManyToOne\"},{\"FromTable\":\"Observation\",\"FromColumn\":\"patient_id\",\"ToTable\":\"Patient\",\"ToColumn\":\"patient_id\",\"IsActive\":true,\"IsBidirectional\":false,\"Cardinality\":\"ManyToOne\"},{\"FromTable\":\"DimDate\",\"FromColumn\":\"Date\",\"ToTable\":\"Encounter\",\"ToColumn\":\"encounter_date\",\"IsActive\":true,\"IsBidirectional\":false,\"Cardinality\":\"ManyToOne\"}]"
+  },
+  "elements": [
+    {
+      "id": "59ecaffe-59b9-442d-b468-ed5cdceb7b07",
+      "is_selected": true,
+      "display_name": "Condition",
+      "type": "semantic_model.table",
+      "description": null,
+      "children": [
+        {
+          "id": "365d4aff-55f4-4380-9586-38efdff20d55",
+          "is_selected": true,
+          "display_name": "birth_date",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "e03b4229-765b-40d7-92ef-4a356ad9c834",
+          "is_selected": true,
+          "display_name": "clinical_status",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "c0f1d488-b3f5-4cee-9794-91233dd275e0",
+          "is_selected": true,
+          "display_name": "condition_age_days",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "d6fac0fb-1d04-497c-aebd-78d6805d9521",
+          "is_selected": true,
+          "display_name": "condition_code",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "363ad4f6-de96-472b-bf26-7628cfbf79d8",
+          "is_selected": true,
+          "display_name": "condition_count",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "041a845c-8059-49c1-8783-83f5dd5efa37",
+          "is_selected": true,
+          "display_name": "condition_display",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "9bdb87fd-2877-4361-8b2e-531203530b4d",
+          "is_selected": true,
+          "display_name": "condition_id",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "37511494-398d-4c07-9c53-938cc3d3735a",
+          "is_selected": true,
+          "display_name": "condition_status_group",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "f81b1dcf-0236-4d38-9117-570d5e1aeb99",
+          "is_selected": true,
+          "display_name": "encounter_id",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "0a5fb58e-aabd-4128-88f5-3ca2e0336de6",
+          "is_selected": true,
+          "display_name": "encounter_reference",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "61df0c4d-afdd-4310-9480-7f57e409196f",
+          "is_selected": true,
+          "display_name": "gender",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "68c16041-67ee-4002-a447-4cdb47b20f5b",
+          "is_selected": true,
+          "display_name": "has_encounter",
+          "type": "semantic_model.column",
+          "data_type": "Boolean",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "9da3eee7-1591-42b9-9381-2562d2408dc5",
+          "is_selected": true,
+          "display_name": "ingested_at",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "aabb987b-ff24-4898-8138-24e769fc4977",
+          "is_selected": true,
+          "display_name": "is_chronic",
+          "type": "semantic_model.column",
+          "data_type": "Boolean",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "4a4eef9a-7123-49f2-80ba-dcb16ffc1e5b",
+          "is_selected": true,
+          "display_name": "onset_date",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "c5858c64-12af-4bf6-8c2d-ccc03c482c40",
+          "is_selected": true,
+          "display_name": "patient_age",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "2f331e03-b600-4d24-854b-d61779d5ee7c",
+          "is_selected": true,
+          "display_name": "patient_id",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "fa917a0e-a9e7-48b8-bcbe-ed346250a57f",
+          "is_selected": true,
+          "display_name": "patient_reference",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "b2be8387-7468-4423-9ccf-6878874d1e57",
+          "is_selected": true,
+          "display_name": "recorded_date",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "aec48996-02d5-4019-8e19-fd0389caf042",
+      "is_selected": true,
+      "display_name": "DimDate",
+      "type": "semantic_model.table",
+      "description": null,
+      "children": [
+        {
+          "id": "c90e9b2e-fca3-45a3-b34e-d8c7a0b8d0e8",
+          "is_selected": true,
+          "display_name": "Date",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "bc4cbcf2-1fd0-4b62-b3e6-91245d6b4605",
+          "is_selected": true,
+          "display_name": "Day",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "487c7201-2a51-4b57-92c6-be4e07e8c4d6",
+          "is_selected": true,
+          "display_name": "Day Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "f4966206-8ce6-442b-b590-2ff1bc74cf15",
+          "is_selected": true,
+          "display_name": "Day Name Full",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "b069c4d9-21d7-476a-b3b7-50fa3629cf47",
+          "is_selected": true,
+          "display_name": "Is Current Month",
+          "type": "semantic_model.column",
+          "data_type": "Boolean",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "22ab9aa7-7579-42c1-a3ba-127cf93ac05c",
+          "is_selected": true,
+          "display_name": "Is Current Year",
+          "type": "semantic_model.column",
+          "data_type": "Boolean",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "209fe850-dfcb-42de-b1ad-f70f5079154a",
+          "is_selected": true,
+          "display_name": "Is Weekend",
+          "type": "semantic_model.column",
+          "data_type": "Boolean",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "8b5aedb2-aef3-4fce-9aff-2b9888651469",
+          "is_selected": true,
+          "display_name": "Month",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "108af306-be89-43c4-964e-dbe73b17816d",
+          "is_selected": true,
+          "display_name": "Month Name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "36fddc2d-1945-439e-9199-7d850289c55b",
+          "is_selected": true,
+          "display_name": "Month Number",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "65885c01-b2cf-4416-8da5-33046a45d95d",
+          "is_selected": true,
+          "display_name": "Quarter",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "9e9d625a-c6c5-46f2-8ad0-259034f3f701",
+          "is_selected": true,
+          "display_name": "Week Number",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "6ac20f44-e416-46b2-8a6b-6c522d5ed487",
+          "is_selected": true,
+          "display_name": "Year",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "148f7a9b-959e-4433-98b5-9c6d3dc8df17",
+          "is_selected": true,
+          "display_name": "YearMonth",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "528882e2-2445-4f77-af0d-0324f0901b9a",
+      "is_selected": true,
+      "display_name": "Encounter",
+      "type": "semantic_model.table",
+      "description": null,
+      "children": [
+        {
+          "id": "c34b0dc4-7535-42c5-9f5a-10f94058b495",
+          "is_selected": true,
+          "display_name": "age_at_encounter",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "09cc6f53-02c7-48de-99a2-64ff4c34ffa0",
+          "is_selected": true,
+          "display_name": "birth_date",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "5cd41382-bbbf-4af3-9a43-091474017223",
+          "is_selected": true,
+          "display_name": "duration_minutes",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "789d7b14-ff8e-4ef0-ade6-ac2a01e29641",
+          "is_selected": true,
+          "display_name": "encounter_class",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "642532d2-3b56-4571-9d61-ef976709db84",
+          "is_selected": true,
+          "display_name": "encounter_date",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "4aae0d01-e920-4b35-8dd1-94c4b2060984",
+          "is_selected": true,
+          "display_name": "encounter_id",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "9513d6c9-16b9-4e86-a35a-679f1ea7d1a9",
+          "is_selected": true,
+          "display_name": "gender",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "eba8ec1a-93c1-4b0e-968c-86f1f55db491",
+          "is_selected": true,
+          "display_name": "ingested_at",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ffd38cd7-8de4-46c6-9cb1-09c39e7ee51d",
+          "is_selected": true,
+          "display_name": "patient_id",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "c8917315-3b30-4caf-bb7d-112a0cc72786",
+          "is_selected": true,
+          "display_name": "period_end",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "64bac1d7-3f27-4597-bfa7-0a11d954b7f3",
+          "is_selected": true,
+          "display_name": "period_start",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "fce79d1b-592a-4ff3-b9c5-205b2d60e507",
+          "is_selected": true,
+          "display_name": "provider_reference",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "df5a46ed-e974-46b8-92d6-55442a5d4c61",
+          "is_selected": true,
+          "display_name": "status",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "e0427e64-d971-4b03-8e58-152cbbe754b8",
+      "is_selected": true,
+      "display_name": "Observation",
+      "type": "semantic_model.table",
+      "description": null,
+      "children": [
+        {
+          "id": "601afc18-b7cd-4761-b390-8c030c5981a0",
+          "is_selected": true,
+          "display_name": "birth_date",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "66b316bf-7eb1-4136-a79d-116d361815cf",
+          "is_selected": true,
+          "display_name": "boolean_value",
+          "type": "semantic_model.column",
+          "data_type": "Boolean",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "5fddfe47-3704-4d52-8aab-9627f72ca560",
+          "is_selected": true,
+          "display_name": "encounter_date",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "3e25eeeb-95de-441a-9011-8c25db7a35a0",
+          "is_selected": true,
+          "display_name": "encounter_id",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "b7e44b56-273f-4424-a038-1ff4cafe8b9e",
+          "is_selected": true,
+          "display_name": "gender",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "7e3e9dcd-a846-48fa-98f3-7bd3d4e44c03",
+          "is_selected": true,
+          "display_name": "ingested_at",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "dc7f19ed-671e-4492-97f5-d8a22ee09547",
+          "is_selected": true,
+          "display_name": "numeric_value",
+          "type": "semantic_model.column",
+          "data_type": "Double",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "a21f03ca-e1f7-4f12-8fca-0fdd11364b5f",
+          "is_selected": true,
+          "display_name": "observation_code",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "faa3a5eb-257c-4e7c-bc2c-11eea55ceefd",
+          "is_selected": true,
+          "display_name": "observation_date",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "243ab12b-d8d0-4bed-982f-28de8219da73",
+          "is_selected": true,
+          "display_name": "observation_display",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "8bbde0e8-91e7-4b5a-bd1f-21bb5feeafde",
+          "is_selected": true,
+          "display_name": "observation_id",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "c71433b8-9c4a-4313-ac67-1097bb83bca5",
+          "is_selected": true,
+          "display_name": "patient_id",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "bca5d319-620b-4880-aa85-53ae2d6bc3ac",
+          "is_selected": true,
+          "display_name": "status",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "55a75e0a-e11e-490b-974d-45ae92e080c9",
+          "is_selected": true,
+          "display_name": "text_value",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "7c582109-33ad-4e69-8959-3a688e579d75",
+          "is_selected": true,
+          "display_name": "unit",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "b4cee0e6-2cfd-4989-bb50-01d35ce98e4f",
+      "is_selected": true,
+      "display_name": "Patient",
+      "type": "semantic_model.table",
+      "description": null,
+      "children": [
+        {
+          "id": "707fc735-8e9f-4761-b446-28e0143df03b",
+          "is_selected": true,
+          "display_name": "active",
+          "type": "semantic_model.column",
+          "data_type": "Boolean",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "5e1cd2bd-1619-4784-8841-0775d64d6172",
+          "is_selected": true,
+          "display_name": "birth_date",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "966d5d00-a568-48df-866e-e7234e127cc7",
+          "is_selected": true,
+          "display_name": "city",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "96e0a1c6-91f7-44fa-9035-45436abcd50d",
+          "is_selected": true,
+          "display_name": "condition_count",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "01c6023e-f7b7-4378-a6c1-b63022bf5eb0",
+          "is_selected": true,
+          "display_name": "country",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "759dd39d-e77e-4a3a-9572-035d9523bb4f",
+          "is_selected": true,
+          "display_name": "deceased",
+          "type": "semantic_model.column",
+          "data_type": "Boolean",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "70efe06e-a011-41f0-ba81-d6ab8de87dbf",
+          "is_selected": true,
+          "display_name": "encounter_count",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "cef699dd-117b-43a8-a13d-1843d4704a9c",
+          "is_selected": true,
+          "display_name": "family_name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "69d7e021-2db3-4604-99da-f225bacbbf0a",
+          "is_selected": true,
+          "display_name": "gender",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "ef682186-a25e-4f2f-9792-6a4d37af027b",
+          "is_selected": true,
+          "display_name": "given_name",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "aedff887-22b9-4fab-920d-856882e5cf17",
+          "is_selected": true,
+          "display_name": "ingested_at",
+          "type": "semantic_model.column",
+          "data_type": "DateTime",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "eed91f9a-fda6-4d83-bddc-2c17b1c98099",
+          "is_selected": true,
+          "display_name": "observation_count",
+          "type": "semantic_model.column",
+          "data_type": "Int64",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "069f2cc3-abe7-47ff-be12-72a36054b33f",
+          "is_selected": true,
+          "display_name": "patient_id",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        },
+        {
+          "id": "d5a1a69b-6d33-4f5e-a36f-3af3b275c7e5",
+          "is_selected": true,
+          "display_name": "state",
+          "type": "semantic_model.column",
+          "data_type": "String",
+          "description": null,
+          "children": []
+        }
+      ]
+    }
+  ]
+}

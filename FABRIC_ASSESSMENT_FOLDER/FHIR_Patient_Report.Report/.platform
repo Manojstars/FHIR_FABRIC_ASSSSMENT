@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "FHIR_Patient_Report"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "934be838-4cab-b814-4391-de2d0d1e9068"
+  }
+}

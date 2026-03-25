@@ -1,0 +1,152 @@
+table Observation
+	lineageTag: e0427e64-d971-4b03-8e58-152cbbe754b8
+	sourceLineageTag: [Gold_Layer].[Observation]
+
+	column encounter_id
+		dataType: string
+		lineageTag: 3e25eeeb-95de-441a-9011-8c25db7a35a0
+		sourceLineageTag: encounter_id
+		summarizeBy: none
+		sourceColumn: encounter_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column observation_id
+		dataType: string
+		lineageTag: 8bbde0e8-91e7-4b5a-bd1f-21bb5feeafde
+		sourceLineageTag: observation_id
+		summarizeBy: none
+		sourceColumn: observation_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: bca5d319-620b-4880-aa85-53ae2d6bc3ac
+		sourceLineageTag: status
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column patient_id
+		dataType: string
+		lineageTag: c71433b8-9c4a-4313-ac67-1097bb83bca5
+		sourceLineageTag: patient_id
+		summarizeBy: none
+		sourceColumn: patient_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column observation_code
+		dataType: string
+		lineageTag: a21f03ca-e1f7-4f12-8fca-0fdd11364b5f
+		sourceLineageTag: observation_code
+		summarizeBy: none
+		sourceColumn: observation_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column observation_display
+		dataType: string
+		lineageTag: 243ab12b-d8d0-4bed-982f-28de8219da73
+		sourceLineageTag: observation_display
+		summarizeBy: none
+		sourceColumn: observation_display
+
+		annotation SummarizationSetBy = Automatic
+
+	column ingested_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7e3e9dcd-a846-48fa-98f3-7bd3d4e44c03
+		sourceLineageTag: ingested_at
+		summarizeBy: none
+		sourceColumn: ingested_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column numeric_value
+		dataType: double
+		lineageTag: dc7f19ed-671e-4492-97f5-d8a22ee09547
+		sourceLineageTag: numeric_value
+		summarizeBy: sum
+		sourceColumn: numeric_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column boolean_value
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 66b316bf-7eb1-4136-a79d-116d361815cf
+		sourceLineageTag: boolean_value
+		summarizeBy: none
+		sourceColumn: boolean_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column text_value
+		dataType: string
+		lineageTag: 55a75e0a-e11e-490b-974d-45ae92e080c9
+		sourceLineageTag: text_value
+		summarizeBy: none
+		sourceColumn: text_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit
+		dataType: string
+		lineageTag: 7c582109-33ad-4e69-8959-3a688e579d75
+		sourceLineageTag: unit
+		summarizeBy: none
+		sourceColumn: unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column observation_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: faa3a5eb-257c-4e7c-bc2c-11eea55ceefd
+		sourceLineageTag: observation_date
+		summarizeBy: none
+		sourceColumn: observation_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column encounter_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 5fddfe47-3704-4d52-8aab-9627f72ca560
+		sourceLineageTag: encounter_date
+		summarizeBy: none
+		sourceColumn: encounter_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column gender
+		dataType: string
+		lineageTag: b7e44b56-273f-4424-a038-1ff4cafe8b9e
+		sourceLineageTag: gender
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column birth_date
+		dataType: string
+		lineageTag: 601afc18-b7cd-4761-b390-8c030c5981a0
+		sourceLineageTag: birth_date
+		summarizeBy: none
+		sourceColumn: birth_date
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Observation = entity
+		mode: directLake
+		source
+			entityName: Observation
+			schemaName: Gold_Layer
+			expressionSource: 'DirectLake - FHIR_Lakehouse'
+
