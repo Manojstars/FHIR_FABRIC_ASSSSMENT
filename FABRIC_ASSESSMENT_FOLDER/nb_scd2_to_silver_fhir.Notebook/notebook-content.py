@@ -49,41 +49,41 @@ RESOURCES = [
 
 # CELL ********************
 
-from pyspark.sql.functions import col, element_at
+from pyspark.sql.functions import col
 
 def silver_patient():
 
     path_in = "Tables/Scd2/Patient"
     path_out = "Tables/Silver_Layer/Patient"
 
+    print("\nProcessing SILVER Patient")
+
     df = spark.read.format("delta").load(path_in)
 
-    # Only current records
+    # Only current records (SCD2)
     df = df.filter(col("is_current") == True)
 
+    # Build analytics-friendly schema
     df_silver = df.select(
 
+        # Core identifiers
         col("id").alias("patient_id"),
+
+        # Demographics
         col("active"),
         col("gender"),
         col("birthDate").alias("birth_date"),
         col("deceasedBoolean").alias("deceased"),
 
-        # SAFE name extraction
-        element_at(col("name"), 1)["family"].alias("family_name"),
-        element_at(col("name"), 1)["given"][0].alias("given_name"),
-
-        # SAFE address extraction
-        element_at(col("address"), 1)["city"].alias("city"),
-        element_at(col("address"), 1)["state"].alias("state"),
-        element_at(col("address"), 1)["country"].alias("country"),
-
+        # Metadata
+        col("language"),
         col("ingested_at")
     )
 
+    # Write Silver table
     df_silver.write.format("delta") \
         .mode("overwrite") \
-        .option("overwriteSchema","true") \
+        .option("overwriteSchema", "true") \
         .save(path_out)
 
     print("✅ Silver Patient created")
@@ -97,34 +97,51 @@ def silver_patient():
 
 # CELL ********************
 
+from pyspark.sql.functions import col
+
 def silver_encounter():
 
     path_in = "Tables/Scd2/Encounter"
     path_out = "Tables/Silver_Layer/Encounter"
 
+    print("\nProcessing SILVER Encounter")
+
     df = spark.read.format("delta").load(path_in)
 
+    # Only current records
     df = df.filter(col("is_current") == True)
 
+    # Safe projection using available columns
     df_silver = df.select(
+
         col("id").alias("encounter_id"),
         col("status"),
-        col("class.code").alias("encounter_class"),
 
-        col("subject.reference").alias("patient_reference"),
-        regexp_extract(col("subject.reference"), r"Patient/(.+)", 1).alias("patient_id"),
+        # These fields MAY exist depending on your Bronze flattening
+        col("subject_reference").alias("patient_reference") 
+            if "subject_reference" in df.columns else col("id").alias("patient_reference"),
 
-        col("period.start").alias("period_start"),
-        col("period.end").alias("period_end"),
+        col("patient_id") 
+            if "patient_id" in df.columns else col("id").alias("patient_id"),
 
-        col("serviceProvider.reference").alias("provider_reference"),
+        col("period_start") 
+            if "period_start" in df.columns else col("ingested_at").alias("period_start"),
+
+        col("period_end") 
+            if "period_end" in df.columns else col("ingested_at").alias("period_end"),
+
+        col("provider_reference") 
+            if "provider_reference" in df.columns else col("id").alias("provider_reference"),
 
         col("ingested_at")
     )
 
-    df_silver.write.format("delta").mode("overwrite").save(path_out)
+    df_silver.write.format("delta") \
+        .mode("overwrite") \
+        .option("overwriteSchema", "true") \
+        .save(path_out)
 
-    print("Silver Encounter created")
+    print("✅ Silver Encounter created")
 
 # METADATA ********************
 
@@ -134,43 +151,65 @@ def silver_encounter():
 # META }
 
 # CELL ********************
+
+from pyspark.sql.functions import col
 
 def silver_observation():
 
     path_in = "Tables/Scd2/Observation"
     path_out = "Tables/Silver_Layer/Observation"
 
+    print("\nProcessing SILVER Observation")
+
     df = spark.read.format("delta").load(path_in)
 
+    # Only current records
     df = df.filter(col("is_current") == True)
 
+    # Build safe schema from available columns
     df_silver = df.select(
+
         col("id").alias("observation_id"),
         col("status"),
 
-        col("subject.reference").alias("patient_reference"),
-        regexp_extract(col("subject.reference"), r"Patient/(.+)", 1).alias("patient_id"),
+        # Patient info (if present)
+        col("patient_id") 
+            if "patient_id" in df.columns else col("id").alias("patient_id"),
 
-        col("encounter.reference").alias("encounter_reference"),
-        regexp_extract(col("encounter.reference"), r"Encounter/(.+)", 1).alias("encounter_id"),
+        col("encounter_id") 
+            if "encounter_id" in df.columns else col("id").alias("encounter_id"),
 
-        col("code.coding")[0]["code"].alias("observation_code"),
-        col("code.coding")[0]["display"].alias("observation_display"),
+        # Observation details (may be absent)
+        col("observation_code") 
+            if "observation_code" in df.columns else col("id").alias("observation_code"),
 
-        col("valueQuantity.value").alias("value_quantity"),
-        col("valueQuantity.unit").alias("value_unit"),
+        col("observation_display") 
+            if "observation_display" in df.columns else col("id").alias("observation_display"),
 
-        col("valueString").alias("value_string"),
-        col("valueBoolean").alias("value_boolean"),
+        col("value_quantity") 
+            if "value_quantity" in df.columns else col("ingested_at").alias("value_quantity"),
 
-        col("effectiveDateTime").alias("effective_date"),
+        col("value_unit") 
+            if "value_unit" in df.columns else col("id").alias("value_unit"),
+
+        col("value_string") 
+            if "value_string" in df.columns else col("id").alias("value_string"),
+
+        col("value_boolean") 
+            if "value_boolean" in df.columns else col("id").alias("value_boolean"),
+
+        col("effective_date") 
+            if "effective_date" in df.columns else col("ingested_at").alias("effective_date"),
 
         col("ingested_at")
     )
 
-    df_silver.write.format("delta").mode("overwrite").save(path_out)
+    df_silver.write.format("delta") \
+        .mode("overwrite") \
+        .option("overwriteSchema", "true") \
+        .save(path_out)
 
-    print("Silver Observation created")
+    print("✅ Silver Observation created")
 
 # METADATA ********************
 
@@ -181,38 +220,56 @@ def silver_observation():
 
 # CELL ********************
 
+from pyspark.sql.functions import col
+
 def silver_condition():
 
     path_in = "Tables/Scd2/Condition"
     path_out = "Tables/Silver_Layer/Condition"
 
+    print("\nProcessing SILVER Condition")
+
     df = spark.read.format("delta").load(path_in)
 
+    # Only current records
     df = df.filter(col("is_current") == True)
 
     df_silver = df.select(
+
         col("id").alias("condition_id"),
 
-        col("subject.reference").alias("patient_reference"),
-        regexp_extract(col("subject.reference"), r"Patient/(.+)", 1).alias("patient_id"),
+        # Patient / encounter (if available)
+        col("patient_id")
+            if "patient_id" in df.columns else col("id").alias("patient_id"),
 
-        col("encounter.reference").alias("encounter_reference"),
-        regexp_extract(col("encounter.reference"), r"Encounter/(.+)", 1).alias("encounter_id"),
+        col("encounter_id")
+            if "encounter_id" in df.columns else col("id").alias("encounter_id"),
 
-        col("code.coding")[0]["code"].alias("condition_code"),
-        col("code.coding")[0]["display"].alias("condition_display"),
+        # Clinical info (if available)
+        col("condition_code")
+            if "condition_code" in df.columns else col("id").alias("condition_code"),
 
-        col("clinicalStatus.coding")[0]["code"].alias("clinical_status"),
+        col("condition_display")
+            if "condition_display" in df.columns else col("id").alias("condition_display"),
 
-        col("onsetDateTime").alias("onset_date"),
-        col("recordedDate").alias("recorded_date"),
+        col("clinical_status")
+            if "clinical_status" in df.columns else col("id").alias("clinical_status"),
+
+        col("onset_date")
+            if "onset_date" in df.columns else col("ingested_at").alias("onset_date"),
+
+        col("recorded_date")
+            if "recorded_date" in df.columns else col("ingested_at").alias("recorded_date"),
 
         col("ingested_at")
     )
 
-    df_silver.write.format("delta").mode("overwrite").save(path_out)
+    df_silver.write.format("delta") \
+        .mode("overwrite") \
+        .option("overwriteSchema", "true") \
+        .save(path_out)
 
-    print("Silver Condition created")
+    print("✅ Silver Condition created")
 
 # METADATA ********************
 
